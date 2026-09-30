@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08111f">
+<title>Free Global</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,"Noto Sans Bengali",sans-serif;
+background:#f4f7fb;
+color:#172033
+}
+header{
+background:#08111f;
+color:white;
+padding:15px;
+position:sticky;
+top:0;
+z-index:10
+}
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+max-width:1100px;
+margin:auto
+}
+.logo{
+font-size:23px;
+font-weight:900
+}
+.logo span{color:#28a5ff}
+nav{
+display:flex;
+gap:5px;
+flex-wrap:wrap
+}
+button{
+border:0;
+border-radius:10px;
+padding:10px 14px;
+font-weight:bold;
+cursor:pointer
+}
+nav button{
+background:#18263b;
+color:white
+}
+.primary{
+background:#1475e8;
+color:white
+}
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px 15px
+}
+.hero{
+background:linear-gradient(135deg,#08111f,#12477c);
+color:white;
+border-radius:22px;
+padding:35px 22px;
+margin-bottom:20px
+}
+.hero h1{
+font-size:42px;
+margin:0 0 10px
+}
+.hero p{
+font-size:17px;
+line-height:1.6
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:14px
+}
+.card{
+background:white;
+padding:18px;
+border-radius:16px;
+box-shadow:0 4px 18px #17203314;
+margin-bottom:14px
+}
+.badge{
+display:inline-block;
+background:#e9f2ff;
+color:#1462b8;
+padding:5px 9px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold
+}
+.input{
+width:100%;
+padding:13px;
+border:1px solid #d6dce7;
+border-radius:10px;
+margin:5px 0 12px;
+font-size:16px
+}
+.search{
+display:grid;
+grid-template-columns:2fr 1fr auto;
+gap:8px
+}
+.worker{
+display:flex;
+flex-direction:column;
+gap:9px
+}
+.avatar{
+width:55px;
+height:55px;
+border-radius:50%;
+background:#e4efff;
+display:grid;
+place-items:center;
+font-size:25px
+}
+.row{
+display:flex;
+align-items:center;
+gap:10px;
+flex-wrap:wrap
+}
+.muted{color:#697386}
+.chatbox{
+background:#edf1f7;
+border-radius:16px;
+padding:15px;
+min-height:350px;
+max-height:55vh;
+overflow:auto
+}
+.msg{
+padding:11px 14px;
+border-radius:14px;
+margin:8px 0;
+max-width:85%
+}
+.bot{background:white}
+.me{
+background:#1475e8;
+color:white;
+margin-left:auto
+}
+footer{
+text-align:center;
+padding:30px;
+color:#6d7688
+}
+@media(max-width:700px){
+.top{
+flex-direction:column;
+align-items:flex-start
+}
+nav{width:100%}
+.hero h1{font-size:34px}
+.search{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="top">
+
+<div class="logo">
+FREE <span>GLOBAL</span>
+</div>
+
+<nav>
+<button onclick="home()">হোম</button>
+<button onclick="services()">সার্ভিস</button>
+<button onclick="bookings()">বুকিং</button>
+<button onclick="ai()">AI সহকারী</button>
+<button onclick="account()">অ্যাকাউন্ট</button>
+</nav>
+
+</div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+© 2026 Free Global — Find people for any work
+</footer>
+
+<script>
+
+const workers=[
+{
+id:1,
+name:"রহিম মিয়া",
+profession:"বাসা বদল",
+area:"ঢাকা",
+rate:800,
+rating:4.8
+},
+{
+id:2,
+name:"করিম ইলেকট্রিশিয়ান",
+profession:"ইলেকট্রিশিয়ান",
+area:"ঢাকা",
+rate:600,
+rating:4.9
+},
+{
+id:3,
+name:"সুমন প্লাম্বার",
+profession:"প্লাম্বার",
+area:"চট্টগ্রাম",
+rate:700,
+rating:4.7
+},
+{
+id:4,
+name:"মিতা ক্লিনিং",
+profession:"ক্লিনিং",
+area:"ঢাকা",
+rate:500,
+rating:4.8
+},
+{
+id:5,
+name:"জাকির ডেলিভারি",
+profession:"ডেলিভারি",
+area:"সিলেট",
+rate:450,
+rating:4.6
+},
+{
+id:6,
+name:"নাসির কার্পেন্টার",
+profession:"কার্পেন্টার",
+area:"ঢাকা",
+rate:900,
+rating:4.8
+}
+];
+
+const professions=[
+"বাসা বদল",
+"ইলেকট্রিশিয়ান",
+"প্লাম্বার",
+"ক্লিনিং",
+"ডেলিভারি",
+"কার্পেন্টার",
+"মিস্ত্রি",
+"পেইন্টার",
+"ড্রাইভার",
+"রান্নার কাজ",
+"গার্ড",
+"কম্পিউটার সার্ভিস",
+"ফটোগ্রাফার",
+"টিউটর",
+"অন্যান্য"
+];
+
+function app(){
+return document.getElementById("app");
+}
+
+function home(){
+
+app().innerHTML=`
+
+<div class="container">
+
+<section class="hero">
+
+<h1>Free Global</h1>
+
+<p>
+আপনার প্রয়োজনের কাজের মানুষ খুঁজুন এক জায়গায়।
+বাসা বদল, ইলেকট্রিশিয়ান, প্লাম্বার, ক্লিনিং,
+ডেলিভারি এবং আরও অনেক ধরনের পেশার মানুষ।
+</p>
+
+<div class="row">
+
+<button class="primary" onclick="services()">
+কাজের মানুষ খুঁজুন
+</button>
+
+<button onclick="ai()">
+AI সহকারী
+</button>
+
+</div>
+
+</section>
+
+<h2>জনপ্রিয় সার্ভিস</h2>
+
+<div class="grid">
+
+${professions.slice(0,8).map(p=>`
+
+<div class="card">
+
+<span class="badge">${p}</span>
+
+<h3>${p}</h3>
+
+<button onclick="find('${p}')">
+মানুষ খুঁজুন
+</button>
+
+</div>
+
+`).join("")}
+
+</div>
+
+<div class="card">
+
+<h2>আপনি কি কোনো কাজ করেন?</h2>
+
+<p class="muted">
+Free Global-এ worker হিসেবে আপনার সার্ভিস দিতে পারবেন।
+</p>
+
+<button class="primary" onclick="worker()">
+Worker হিসেবে যোগ দিন
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+function services(search=""){
+
+let list=workers.filter(w=>{
+
+if(!search)return true;
+
+return (
+w.name+
+w.profession+
+w.area
+).toLowerCase().includes(search.toLowerCase());
+
+});
+
+app().innerHTML=`
+
+<div class="container">
+
+<h2>কাজের মানুষ খুঁজুন</h2>
+
+<div class="search">
+
+<input
+id="search"
+class="input"
+placeholder="সার্ভিস, নাম বা এলাকা লিখুন"
+value="${search}"
+>
+
+<select id="profession" class="input">
+
+<option value="">সব পেশা</option>
+
+${professions.map(p=>`
+<option>${p}</option>
+`).join("")}
+
+</select>
+
+<button
+class="primary"
+onclick="searchWorkers()">
+খুঁজুন
+</button>
+
+</div>
+
+<div class="grid">
+
+${list.map(workerCard).join("")}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+function workerCard(w){
+
+return `
+
+<div class="card worker">
+
+<div class="row">
+
+<div class="avatar">👤</div>
+
+<div>
+
+<h3>${w.name}</h3>
+
+<span class="badge">
+${w.profession}
+</span>
+
+</div>
+
+</div>
+
+<div>📍 ${w.area}</div>
+
+<div>
+⭐ ${w.rating}
+&nbsp; • &nbsp;
+💰 ৳${w.rate}
+</div>
+
+<button
+class="primary"
+onclick="hire(${w.id})">
+Hire / বুক করুন
+</button>
+
+</div>
+
+`;
+
+}
+
+function searchWorkers(){
+
+let text=document.getElementById("search").value;
+
+let profession=document.getElementById("profession").value;
+
+services(text || profession);
+
+}
+
+function find(p){
+services(p);
+}
+
+function hire(id){
+
+let w=workers.find(x=>x.id===id);
+
+let date=prompt(
+"কোন তারিখে কাজ লাগবে?",
+new Date(Date.now()+86400000)
+.toISOString()
+.slice(0,10)
+);
+
+if(!date)return;
+
+let area=prompt(
+"কাজের এলাকা লিখুন",
+w.area
+);
+
+if(!area)return;
+
+let note=prompt(
+"কাজের বিস্তারিত লিখুন",
+""
+);
+
+let list=
+JSON.parse(
+localStorage.getItem("free_global_bookings")||"[]"
+);
+
+list.unshift
